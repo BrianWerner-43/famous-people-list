@@ -29,6 +29,22 @@ function FamousSection() {
     console.log(`The person is ${famousPersonName} and they're famous for ${famousPersonRole}`);
     
     // TODO: create POST request to add this new person to the database
+    let person = {
+      name: famousPersonName,
+      role: famousPersonRole
+    }
+    axios({
+      method: 'POST',
+      url: '/people',
+      data: person
+    }).then((response) => {
+      console.log('POST request success!');
+      setPersonName('');
+      setPersonRole('');
+      fetchPeople();
+    }).catch((dbError) => {
+      console.log('dbError', dbError);
+    })
 
     // HINT: the server is expecting a person object 
     //       with a `name` and a `role` property
